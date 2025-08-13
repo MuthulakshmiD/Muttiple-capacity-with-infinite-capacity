@@ -25,19 +25,22 @@ Queuing are the most frequently encountered problems in everyday life. For examp
 
 ## Program
 ```
+## exp 5 ---------!
+# 10 ,1 ,7 ,2
 import math
-arr_time=float(input("Enter the mean inter arrival time of objects from Feeder (in secs): "))
-ser_time=float(input("\nEnter the mean  inter service time of Lathe Machine (in secs) :  "))
-Robot_time=float(input("\nEnter the Additional time taken for the Robot (in secs) :  "))
-c=int(input("\nNumber of service centre :  "))
-lam=1/arr_time
-mu=1/(ser_time+Robot_time)
-print("\n--------------------------------------------------------------")
-print("Multiple Server with Infinite Capacity - (M/M/c):(oo/FIFO)")
-print("--------------------------------------------------------------")
-print(f"The mean arrival rate per second : {lam:.2f}")
-print(f"The mean service rate per second : {mu:.2f}")
-rho=lam/(c*mu)
+
+arr = float(input("Arrival time (sec): "))
+ser = float(input("Service time (sec): "))
+rob = float(input("Robot time (sec): "))
+c = int(input("No. of service centres: "))
+
+lam = 1 / arr
+mu = 1 / (ser + rob)
+rho = lam / (c * mu)
+
+print("\n--- M/M/c Queue Model ---\n")
+print("The mean arrival rate per second : %0.2f "%lam)
+print("The mean service rate per second : %0.2f "%mu)
 sum=(lam/mu)**c*(1/(1-rho))/math.factorial(c)
 for i in range(0,c):
     sum=sum+(lam/mu)**i/math.factorial(i)
@@ -47,15 +50,18 @@ if (rho<1):
     Ls=Lq+lam/mu
     Ws=Ls/lam
     Wq=Lq/lam
-    print(f"Average number of objects in the system : {Ls:.2f}")
-    print(f"Average number of objects in the conveyor : {Lq:.2f}")
-    print(f"Average waiting time of an object in the system : {Ws:.2f} secs")
-    print(f"Average waiting time of an object in the conveyor : {Wq:.2f} secs")
-    print(f"Probability that the system is busy : {rho:.2f}")
-    print(f"Probability that the system is empty : {(1-rho):.2f}")
+    print("Average number of objects in the system : %0.2f "%Ls)
+    print("Average number of objects in the conveyor :  %0.2f "%Lq)
+    print("Average waiting time of an object in the system : %0.2f secs"%Ws)
+    print("Average waiting time of an object in the conveyor : %0.2f secs"%Wq)
+    print("Probability that the system is busy : %0.2f "%(rho))
+    print("Probability that the system is empty : %0.2f "%(1-rho))
 else:
     print("Warning! Objects Over flow will happen in the conveyor")
 print("--------------------------------------------------------------")
+print(f"Arrival rate: {lam:.2f}\n2Service rate: {mu:.2f}")
+
+
 ```
 
 ## Output :
